@@ -1,0 +1,45 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Minecraft Experience Calculator</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f4f4; padding: 20px; }
+        h1 { color: #2c3e50; }
+        form { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px; max-width: 400px; }
+        input { margin: 10px 0; padding: 8px; width: 100%; box-sizing: border-box; }
+        button { background: #27ae60; color: #fff; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px; }
+        button:hover { background: #219150; }
+        table { background: #fff; border-collapse: collapse; margin-top: 20px; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background: #2c3e50; color: #fff; }
+        .result-box { background: #eaf7e9; padding: 15px; border-radius: 6px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Калькулятор опыта Minecraft</h1>
+    <form method="POST">
+        <label>Текущий уровень:</label>
+        <input type="number" name="current_level" required>
+        <br>
+        <label>Целевой уровень:</label>
+        <input type="number" name="target_level" required>
+        <br>
+        <button type="submit">Рассчитать</button>
+    </form>
+
+    {% if result is not none %}
+    <div class="result-box">
+        <h3>Результат: {{ result }}</h3>
+    </div>
+    {% endif %}
+
+    <h2>Таблица опыта с мобов и событий</h2>
+    <table>
+        <tr><th>Источник</th><th>Опыт</th></tr>
+        {% for source, xp in mob_xp.items() %}
+        <tr><td>{{ source }}</td><td>{{ xp }}</td></tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
