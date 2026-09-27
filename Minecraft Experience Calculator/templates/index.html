@@ -1,45 +1,33 @@
-<!-- templates/index.html -->
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-    <title>Minecraft Experience Calculator</title>
-    <style>
-        body { font-family: Arial, sans-serif; background: #f4f4f4; padding: 20px; }
-        h1 { color: #2c3e50; }
-        form { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px; max-width: 400px; }
-        input { margin: 10px 0; padding: 8px; width: 100%; box-sizing: border-box; }
-        button { background: #27ae60; color: #fff; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px; }
-        button:hover { background: #219150; }
-        table { background: #fff; border-collapse: collapse; margin-top: 20px; width: 100%; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background: #2c3e50; color: #fff; }
-        .result-box { background: #eaf7e9; padding: 15px; border-radius: 6px; margin-top: 20px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minecraft XP Calculator</title>
+<style>
+*{box-sizing:border-box} body{margin:0;font-family:Arial,sans-serif;color:#fff;min-height:100vh;background:linear-gradient(rgba(5,10,18,.55),rgba(5,10,18,.72)),url('/minecraft-bg.jpg') center/cover fixed no-repeat;padding:36px 18px}
+body.night{background-image:linear-gradient(rgba(2,6,18,.5),rgba(2,6,18,.75)),url('/night-bg.png')}
+.container{max-width:920px;margin:auto}.top{display:flex;justify-content:space-between;align-items:center;gap:16px}.card{background:rgba(10,18,25,.78);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.15);border-radius:18px;padding:24px;box-shadow:0 12px 35px rgba(0,0,0,.35);margin-top:22px}
+h1{margin:0;font-size:clamp(28px,5vw,48px);text-shadow:0 3px 12px #000} h2{margin-top:0} .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px} label{display:block;margin-bottom:7px;font-weight:700} input{width:100%;padding:13px;border:0;border-radius:10px;font-size:16px}
+button{border:0;border-radius:10px;padding:12px 18px;font-weight:700;cursor:pointer;background:#62c554;color:#10200d;font-size:15px}.theme{background:rgba(255,255,255,.16);color:#fff}.submit{margin-top:16px;width:100%}.result{margin-top:16px;padding:15px;border-radius:10px;background:rgba(98,197,84,.2);font-size:20px;font-weight:700}
+table{width:100%;border-collapse:collapse} th,td{padding:11px 12px;border-bottom:1px solid rgba(255,255,255,.12);text-align:left} th{color:#b8ffae}@media(max-width:620px){.grid{grid-template-columns:1fr}.top{align-items:flex-start;flex-direction:column}}
+</style>
 </head>
 <body>
-    <h1>Калькулятор опыта Minecraft</h1>
+<div class="container">
+  <div class="top"><h1>⛏️ Minecraft XP Calculator</h1><button class="theme" type="button" onclick="document.body.classList.toggle('night')">🌙 Сменить фон</button></div>
+  <div class="card">
+    <h2>Калькулятор опыта</h2>
     <form method="POST">
-        <label>Текущий уровень:</label>
-        <input type="number" name="current_level" required>
-        <br>
-        <label>Целевой уровень:</label>
-        <input type="number" name="target_level" required>
-        <br>
-        <button type="submit">Рассчитать</button>
+      <div class="grid">
+        <div><label>Текущий уровень</label><input type="number" name="current_level" min="0" required></div>
+        <div><label>Целевой уровень</label><input type="number" name="target_level" min="0" required></div>
+      </div>
+      <button class="submit" type="submit">Рассчитать опыт</button>
     </form>
-
-    {% if result is not none %}
-    <div class="result-box">
-        <h3>Результат: {{ result }}</h3>
-    </div>
-    {% endif %}
-
-    <h2>Таблица опыта с мобов и событий</h2>
-    <table>
-        <tr><th>Источник</th><th>Опыт</th></tr>
-        {% for source, xp in mob_xp.items() %}
-        <tr><td>{{ source }}</td><td>{{ xp }}</td></tr>
-        {% endfor %}
-    </table>
+    {% if result is not none %}<div class="result">Нужно опыта: {{ result }}</div>{% endif %}
+  </div>
+  <div class="card"><h2>⚔️ Опыт с мобов и событий</h2><table><tr><th>Источник</th><th>XP</th></tr>{% for source, xp in mob_xp.items() %}<tr><td>{{ source }}</td><td>{{ xp }}</td></tr>{% endfor %}</table></div>
+</div>
 </body>
 </html>
